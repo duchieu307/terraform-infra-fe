@@ -19,4 +19,8 @@ github = {
   branch = "main"
   owner  = "duchieu307"
 }
-OAuthToken = "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"
+OAuthToken = "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"
+
+#Pipeline
+codebuild_image        = "BUILD_GENERAL1_SMALL"
+codebuild_compute_type = "aws/codebuild/standard:5.0"

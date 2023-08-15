@@ -35,13 +35,26 @@ module "route53" {
 
 }
 
-module "frontend-pipeline" {
+module "frontend_pipeline" {
   source = "./modules/pipeline-frontend"
 
-  project    = var.project
-  env        = var.env
-  owner      = var.github.owner
-  gitRepo    = var.github.name
-  gitBranch  = var.github.branch
-  OAuthToken = var.OAuthToken
+  project                 = var.project
+  env                     = var.env
+  owner                   = var.github.owner
+  gitRepo                 = var.github.name
+  gitBranch               = var.github.branch
+  OAuthToken              = var.OAuthToken
+  codebuild_role_arn      = module.iam.codebuild_role_arn
+  codepipeline_role_arn   = module.iam.codepipeline_role_arn
+  codebuild_image         = var.codebuild_image
+  codebuild_compute_type  = var.codebuild_compute_type
+  s3_frontend_bucket_name = module.s3_frontend.s3_frontend_bucket_name
+}
+
+module "iam" {
+  source                 = "./modules/iam"
+  s3_artifact_bucket_arn = module.frontend_pipeline.s3_artifact_bucket_arn
+  s3_frontend_bucket_arn = module.s3_frontend.s3_frontend_bucket_arn
+  project                = var.project
+  env                    = var.env
 }

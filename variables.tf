@@ -47,3 +47,14 @@ variable "OAuthToken" {
   type        = string
   description = "Github OAuth Token"
 }
+
+variable "codebuild_image" {
+  type        = string
+  description = "Codebuild Image"
+}
+
+variable "codebuild_compute_type" {
+  type        = string
+  description = "Codebuild Compute Type"
+}
+
